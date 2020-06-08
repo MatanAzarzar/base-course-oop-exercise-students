@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_oop_practice.missions" default="compile.module.oop_practice.missions">
+  <dirname property="module.oop_practice.missions.basedir" file="${ant.file.module_oop_practice.missions}"/>
+  
+  <property name="module.jdk.home.oop_practice.missions" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.oop_practice.missions" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.oop_practice.missions" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.oop_practice.missions" value="-encoding UTF-8 -source 13 -target 1.8 ${compiler.args}"/>
+  
+  <property name="oop_practice.missions.output.dir" value="${module.oop_practice.missions.basedir}/../../../out/production/oop_practice.Missions"/>
+  <property name="oop_practice.missions.testoutput.dir" value="${module.oop_practice.missions.basedir}/../../../out/test/oop_practice.Missions"/>
+  
+  <path id="oop_practice.missions.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="oop_practice.missions.module.production.classpath">
+    <path refid="${module.jdk.classpath.oop_practice.missions}"/>
+  </path>
+  
+  <path id="oop_practice.missions.runtime.production.module.classpath">
+    <pathelement location="${oop_practice.missions.output.dir}"/>
+  </path>
+  
+  <path id="oop_practice.missions.module.classpath">
+    <path refid="${module.jdk.classpath.oop_practice.missions}"/>
+    <pathelement location="${oop_practice.missions.output.dir}"/>
+  </path>
+  
+  <path id="oop_practice.missions.runtime.module.classpath">
+    <pathelement location="${oop_practice.missions.testoutput.dir}"/>
+    <pathelement location="${oop_practice.missions.output.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.oop_practice.missions">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.oop_practice.missions">
+    <patternset refid="excluded.from.module.oop_practice.missions"/>
+  </patternset>
+  
+  
+  <target name="compile.module.oop_practice.missions" depends="compile.module.oop_practice.missions.production,compile.module.oop_practice.missions.tests" description="Compile module oop_practice.Missions"/>
+  
+  <target name="compile.module.oop_practice.missions.production" depends="register.custom.compilers" description="Compile module oop_practice.Missions; production classes"/>
+  
+  <target name="compile.module.oop_practice.missions.tests" depends="register.custom.compilers,compile.module.oop_practice.missions.production" description="compile module oop_practice.Missions; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.oop_practice.missions" description="cleanup module">
+    <delete dir="${oop_practice.missions.output.dir}"/>
+    <delete dir="${oop_practice.missions.testoutput.dir}"/>
+  </target>
+</project>

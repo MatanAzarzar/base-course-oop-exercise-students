@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_oop_practice.test" default="compile.module.oop_practice.test">
+  <dirname property="module.oop_practice.test.basedir" file="${ant.file.module_oop_practice.test}"/>
+  
+  <property name="module.jdk.home.oop_practice.test" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.oop_practice.test" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.oop_practice.test" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.oop_practice.test" value="-encoding UTF-8 -source 8 -target 1.8 ${compiler.args}"/>
+  
+  <property name="oop_practice.test.output.dir" value="undefined"/>
+  <property name="oop_practice.test.testoutput.dir" value="${module.oop_practice.test.basedir}/../../build/classes/java/test"/>
+  
+  <path id="oop_practice.test.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="oop_practice.test.module.production.classpath">
+    <path refid="${module.jdk.classpath.oop_practice.test}"/>
+    <pathelement location="${oop_practice.main.output.dir}"/>
+    <path refid="library.gradle:_junit:junit:4.12.classpath"/>
+    <path refid="library.gradle:_org.hamcrest:hamcrest-core:1.3.classpath"/>
+  </path>
+  
+  <path id="oop_practice.test.runtime.production.module.classpath">
+    <path refid="oop_practice.main.runtime.production.module.classpath"/>
+    <path refid="library.gradle:_junit:junit:4.12.classpath"/>
+    <path refid="library.gradle:_org.hamcrest:hamcrest-core:1.3.classpath"/>
+  </path>
+  
+  <path id="oop_practice.test.module.classpath">
+    <path refid="${module.jdk.classpath.oop_practice.test}"/>
+    <pathelement location="${oop_practice.main.output.dir}"/>
+    <path refid="library.gradle:_junit:junit:4.12.classpath"/>
+    <path refid="library.gradle:_org.hamcrest:hamcrest-core:1.3.classpath"/>
+  </path>
+  
+  <path id="oop_practice.test.runtime.module.classpath">
+    <pathelement location="${oop_practice.test.testoutput.dir}"/>
+    <path refid="oop_practice.main.runtime.module.classpath"/>
+    <path refid="library.gradle:_junit:junit:4.12.classpath"/>
+    <path refid="library.gradle:_org.hamcrest:hamcrest-core:1.3.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.oop_practice.test">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.oop_practice.test">
+    <patternset refid="excluded.from.module.oop_practice.test"/>
+  </patternset>
+  
+  <path id="oop_practice.test.module.test.sourcepath">
+    <dirset dir="${module.oop_practice.test.basedir}/../../src/test">
+      <include name="Java"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.oop_practice.test" depends="compile.module.oop_practice.test.production,compile.module.oop_practice.test.tests" description="Compile module oop_practice.test"/>
+  
+  <target name="compile.module.oop_practice.test.production" depends="register.custom.compilers,compile.module.oop_practice.main" description="Compile module oop_practice.test; production classes"/>
+  
+  <target name="compile.module.oop_practice.test.tests" depends="register.custom.compilers,compile.module.oop_practice.test.production" description="compile module oop_practice.test; test classes" unless="skip.tests">
+    <mkdir dir="${oop_practice.test.testoutput.dir}"/>
+    <javac2 destdir="${oop_practice.test.testoutput.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.oop_practice.test}/javac">
+      <compilerarg line="${compiler.args.oop_practice.test}"/>
+      <bootclasspath refid="oop_practice.test.module.bootclasspath"/>
+      <classpath refid="oop_practice.test.module.classpath"/>
+      <src refid="oop_practice.test.module.test.sourcepath"/>
+      <patternset refid="excluded.from.compilation.oop_practice.test"/>
+    </javac2>
+    
+    <copy todir="${oop_practice.test.testoutput.dir}">
+      <fileset dir="${module.oop_practice.test.basedir}/../../src/test/Java">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="clean.module.oop_practice.test" description="cleanup module">
+    <delete dir="${oop_practice.test.output.dir}"/>
+    <delete dir="${oop_practice.test.testoutput.dir}"/>
+  </target>
+</project>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_oop_practice.main" default="compile.module.oop_practice.main">
+  <dirname property="module.oop_practice.main.basedir" file="${ant.file.module_oop_practice.main}"/>
+  
+  <property name="module.jdk.home.oop_practice.main" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.oop_practice.main" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.oop_practice.main" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.oop_practice.main" value="-encoding UTF-8 -source 8 -target 1.8 ${compiler.args}"/>
+  
+  <property name="oop_practice.main.output.dir" value="${module.oop_practice.main.basedir}/../../build/classes/java/main"/>
+  <property name="oop_practice.main.testoutput.dir" value="${module.oop_practice.main.basedir}/../../build/classes/java/main"/>
+  
+  <path id="oop_practice.main.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="oop_practice.main.module.production.classpath">
+    <path refid="${module.jdk.classpath.oop_practice.main}"/>
+  </path>
+  
+  <path id="oop_practice.main.runtime.production.module.classpath">
+    <pathelement location="${oop_practice.main.output.dir}"/>
+  </path>
+  
+  <path id="oop_practice.main.module.classpath">
+    <path refid="${module.jdk.classpath.oop_practice.main}"/>
+    <pathelement location="${oop_practice.main.output.dir}"/>
+  </path>
+  
+  <path id="oop_practice.main.runtime.module.classpath">
+    <pathelement location="${oop_practice.main.output.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.oop_practice.main">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.oop_practice.main">
+    <patternset refid="excluded.from.module.oop_practice.main"/>
+  </patternset>
+  
+  <path id="oop_practice.main.module.sourcepath">
+    <dirset dir="${module.oop_practice.main.basedir}/../../src/main">
+      <include name="java"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.oop_practice.main" depends="compile.module.oop_practice.main.production,compile.module.oop_practice.main.tests" description="Compile module oop_practice.main"/>
+  
+  <target name="compile.module.oop_practice.main.production" depends="register.custom.compilers" description="Compile module oop_practice.main; production classes">
+    <mkdir dir="${oop_practice.main.output.dir}"/>
+    <javac2 destdir="${oop_practice.main.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.oop_practice.main}/javac">
+      <compilerarg line="${compiler.args.oop_practice.main}"/>
+      <bootclasspath refid="oop_practice.main.module.bootclasspath"/>
+      <classpath refid="oop_practice.main.module.production.classpath"/>
+      <src refid="oop_practice.main.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.oop_practice.main"/>
+    </javac2>
+    
+    <copy todir="${oop_practice.main.output.dir}">
+      <fileset dir="${module.oop_practice.main.basedir}/../../src/main/java">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.oop_practice.main.tests" depends="register.custom.compilers,compile.module.oop_practice.main.production" description="compile module oop_practice.main; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.oop_practice.main" description="cleanup module">
+    <delete dir="${oop_practice.main.output.dir}"/>
+    <delete dir="${oop_practice.main.testoutput.dir}"/>
+  </target>
+</project>

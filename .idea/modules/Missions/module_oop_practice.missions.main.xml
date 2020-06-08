@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_oop_practice.missions.main" default="compile.module.oop_practice.missions.main">
+  <dirname property="module.oop_practice.missions.main.basedir" file="${ant.file.module_oop_practice.missions.main}"/>
+  
+  <property name="module.jdk.home.oop_practice.missions.main" value=""/>
+  <property name="module.jdk.bin.oop_practice.missions.main" value=""/>
+  <property name="module.jdk.classpath.oop_practice.missions.main" value=""/>
+  
+  <property name="compiler.args.oop_practice.missions.main" value="-encoding UTF-8 -source 13 -target 1.8 ${compiler.args}"/>
+  
+  <property name="oop_practice.missions.main.output.dir" value="${module.oop_practice.missions.main.basedir}/../../../out/production/oop_practice.Missions.main"/>
+  <property name="oop_practice.missions.main.testoutput.dir" value="${module.oop_practice.missions.main.basedir}/../../../out/test/oop_practice.Missions.main"/>
+  
+  <path id="oop_practice.missions.main.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="oop_practice.missions.main.module.production.classpath"/>
+  
+  <path id="oop_practice.missions.main.runtime.production.module.classpath">
+    <pathelement location="${oop_practice.missions.main.output.dir}"/>
+  </path>
+  
+  <path id="oop_practice.missions.main.module.classpath">
+    <pathelement location="${oop_practice.missions.main.output.dir}"/>
+  </path>
+  
+  <path id="oop_practice.missions.main.runtime.module.classpath">
+    <pathelement location="${oop_practice.missions.main.testoutput.dir}"/>
+    <pathelement location="${oop_practice.missions.main.output.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.oop_practice.missions.main">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.oop_practice.missions.main">
+    <patternset refid="excluded.from.module.oop_practice.missions.main"/>
+  </patternset>
+  
+  
+  <target name="compile.module.oop_practice.missions.main" depends="compile.module.oop_practice.missions.main.production,compile.module.oop_practice.missions.main.tests" description="Compile module oop_practice.Missions.main"/>
+  
+  <target name="compile.module.oop_practice.missions.main.production" depends="register.custom.compilers" description="Compile module oop_practice.Missions.main; production classes"/>
+  
+  <target name="compile.module.oop_practice.missions.main.tests" depends="register.custom.compilers,compile.module.oop_practice.missions.main.production" description="compile module oop_practice.Missions.main; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.oop_practice.missions.main" description="cleanup module">
+    <delete dir="${oop_practice.missions.main.output.dir}"/>
+    <delete dir="${oop_practice.missions.main.testoutput.dir}"/>
+  </target>
+</project>
